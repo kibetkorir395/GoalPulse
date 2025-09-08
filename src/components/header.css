@@ -1,0 +1,73 @@
+/* HEADER */
+header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  /*padding: 15px 20px;*/
+}
+
+/*payment header*/
+/*header {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 25px;
+  text-align: center;
+}*/
+
+header::before {
+  content: "⚽";
+  position: absolute;
+  font-size: 10rem;
+  opacity: 0.05;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+/*vip header*/
+/*header h1 {
+  margin: 0;
+  font-size: 2rem;
+}*/
+
+header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  position: relative;
+}
+
+/* NAVIGATION */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--secondary);
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 12px 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background 0.3s;
+  font-weight: 500;
+}
+
+nav a:hover, nav a.active {
+  background: var(--primary);
+}

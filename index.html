@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const loginTab = document.getElementById('loginTab');
+        const registerTab = document.getElementById('registerTab');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const switchToRegister = document.getElementById('switchToRegister');
+        const switchToLogin = document.getElementById('switchToLogin');
+
+        // Switch to register form
+        registerTab.addEventListener('click', function() {
+          loginTab.classList.remove('active');
+          registerTab.classList.add('active');
+          loginForm.style.display = 'none';
+          registerForm.style.display = 'block';
+        });
+
+        switchToRegister.addEventListener('click', function(e) {
+          e.preventDefault();
+          registerTab.click();
+        });
+
+        // Switch to login form
+        loginTab.addEventListener('click', function() {
+          registerTab.classList.remove('active');
+          loginTab.classList.add('active');
+          registerForm.style.display = 'none';
+          loginForm.style.display = 'block';
+        });
+
+        switchToLogin.addEventListener('click', function(e) {
+          e.preventDefault();
+          loginTab.click();
+        });
+
+        // Form validation and submission
+        loginForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const email = document.getElementById('email').value;
+          const password = document.getElementById('password').value;
+
+          // Simple validation
+          if (email && password) {
+            alert('Login successful! Redirecting to your dashboard...');
+            // In a real application, you would handle the login process here
+          } else {
+            alert('Please fill in all fields');
+          }
+        });
+
+        registerForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const name = document.getElementById('reg-name').value;
+          const email = document.getElementById('reg-email').value;
+          const password = document.getElementById('reg-password').value;
+          const confirm = document.getElementById('reg-confirm').value;
+          const terms = document.getElementById('terms').checked;
+
+          // Simple validation
+          if (!name || !email || !password || !confirm) {
+            alert('Please fill in all fields');
+            return;
+          }
+
+          if (password !== confirm) {
+            alert('Passwords do not match');
+            return;
+          }
+
+          if (!terms) {
+            alert('You must agree to the terms and conditions');
+            return;
+          }
+
+          alert('Registration successful! Welcome to Goal Pulse.');
+          // In a real application, you would handle the registration process here
+        });
+      });
+    </script>
+  </body>
+</html>

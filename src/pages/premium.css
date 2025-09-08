@@ -1,0 +1,78 @@
+/* VIP SECTION */
+.vip-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
+
+.vip-intro {
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.vip-intro h2 {
+    color: var(--primary);
+    font-size: 2rem;
+}
+
+.vip-intro p {
+    margin: 15px 0;
+    font-size: 1.1rem;
+}
+
+.btn {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--dark);
+    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #e6b800;
+}
+
+/* VIP MATCHES */
+.matches {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.match-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    border-left: 6px solid var(--accent);
+}
+
+.match-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--primary);
+}
+
+.prediction {
+    margin-bottom: 6px;
+    font-size: 1rem;
+}
+
+.odds {
+    font-weight: bold;
+    color: var(--accent);
+}
+
+@media (max-width: 600px) {
+    .vip-intro h2 {
+        font-size: 1.5rem;
+    }
+}
