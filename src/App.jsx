@@ -17,7 +17,8 @@ import PrivacyPolicy from './pages/privacy';
 import UserProfile from './pages/profile';
 import UserAccount from './pages/account';
 import AdminDashboard from './pages/admin-dashboard';
-import ErrorPage from './components/error-page';
+import ErrorPage from './pages/error-page';
+import Dashboard from './pages/dashboard';
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/account" element={<UserAccount />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
