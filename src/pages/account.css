@@ -1,0 +1,327 @@
+:root {
+    --primary: #0b6623;
+    --secondary: #094d1a;
+    --light: #f9f9f9;
+    --dark: #222;
+    --accent: #ffcc00;
+    --gray: #718096;
+    --light-gray: #e2e8f0;
+    --danger: #e53e3e;
+  }
+
+  .account-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .account-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .account-header h1 {
+    color: var(--primary);
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+  }
+
+  .account-header p {
+    color: var(--gray);
+    font-size: 1.1rem;
+  }
+
+  .account-content {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+  }
+
+  .account-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .user-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    text-align: center;
+  }
+
+  .avatar-large {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 auto 15px;
+  }
+
+  .user-card h2 {
+    margin-bottom: 10px;
+    color: var(--dark);
+    font-size: 1.4rem;
+  }
+
+  .membership-badge {
+    background: var(--accent);
+    color: var(--dark);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+
+  .join-date {
+    color: var(--gray);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+  }
+
+  .status-indicator {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .status-indicator.active {
+    background: #c6f6d5;
+    color: #22543d;
+  }
+
+  .edit-account-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+  }
+
+  .edit-account-btn:hover {
+    background: var(--secondary);
+  }
+
+  .account-main {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .account-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .account-section h2 {
+    color: var(--dark);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--light-gray);
+  }
+
+  .account-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--light-gray);
+  }
+
+  .detail-item:last-child {
+    border-bottom: none;
+  }
+
+  .detail-label {
+    font-weight: 500;
+    color: var(--dark);
+  }
+
+  .detail-value {
+    color: var(--gray);
+  }
+
+  .account-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-group label {
+    font-weight: 500;
+    color: var(--dark);
+  }
+
+  .form-group input {
+    padding: 12px 15px;
+    border: 1px solid var(--light-gray);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+
+  .save-btn, .cancel-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .save-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+  }
+
+  .save-btn:hover {
+    background: var(--secondary);
+  }
+
+  .cancel-btn {
+    background: none;
+    border: 1px solid var(--light-gray);
+    color: var(--gray);
+  }
+
+  .cancel-btn:hover {
+    background: #f7fafc;
+  }
+
+  .preferences-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .preference-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.3s;
+  }
+
+  .preference-item:hover {
+    background: #f7fafc;
+  }
+
+  .preference-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
+  .preference-item input[type="checkbox"]:disabled {
+    cursor: not-allowed;
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .action-btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: left;
+    border: 1px solid var(--light-gray);
+    background: white;
+  }
+
+  .action-btn:hover {
+    background: #f7fafc;
+  }
+
+  .action-btn.change-password {
+    color: var(--primary);
+  }
+
+  .action-btn.enable-2fa {
+    color: var(--primary);
+  }
+
+  .action-btn.download-data {
+    color: var(--gray);
+  }
+
+  @media (max-width: 900px) {
+    .account-content {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .account-container {
+      padding: 15px;
+    }
+
+    .detail-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+
+    .form-actions {
+      flex-direction: column;
+    }
+
+    .save-btn, .cancel-btn {
+      width: 100%;
+    }
+
+    .action-buttons {
+      gap: 10px;
+    }
+
+    .action-btn {
+      text-align: center;
+    }
+  }

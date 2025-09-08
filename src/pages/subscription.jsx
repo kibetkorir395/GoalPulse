@@ -7,7 +7,7 @@ export default function Subscription() {
     <div className="plans-container">
     <div className="plan-card">
         <h2>Daily Plan</h2>
-        <div className="price">Ksh 100 / $1</div>
+        <div className="price">Ksh 640 / $5</div>
         <ul className="features">
             <li>Access for 24 Hours</li>
             <li>High Accuracy Tips</li>
@@ -18,7 +18,7 @@ export default function Subscription() {
 
     <div className="plan-card">
         <h2>Weekly Plan</h2>
-        <div className="price">Ksh 500 / $5</div>
+        <div className="price">Ksh 3,200 / $25</div>
         <ul className="features">
             <li>7 Days Full Access</li>
             <li>Sure VIP Matches</li>
@@ -29,7 +29,7 @@ export default function Subscription() {
 
     <div className="plan-card">
         <h2>Monthly Plan</h2>
-        <div className="price">Ksh 1500 / $15</div>
+        <div className="price">Ksh 10,000 / $77</div>
         <ul className="features">
             <li>30 Days Full Access</li>
             <li>Exclusive Analysis</li>
@@ -38,7 +38,7 @@ export default function Subscription() {
         <NavLink to="/payment" className="btn">Subscribe</NavLink>
     </div>
 
-    <div className="plan-card">
+    {/*<div className="plan-card">
         <h2>Yearly Plan</h2>
         <div className="price">Ksh 10,000 / $100</div>
         <ul className="features">
@@ -47,7 +47,7 @@ export default function Subscription() {
             <li>24/7 Support</li>
         </ul>
         <NavLink to="/payment" className="btn">Subscribe</NavLink>
-    </div>
+    </div>*/}
 </div>
   )
 }

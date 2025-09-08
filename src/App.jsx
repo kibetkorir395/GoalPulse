@@ -15,6 +15,7 @@ import FAQ from './pages/faq';
 import TermsOfService from './pages/terms';
 import PrivacyPolicy from './pages/privacy';
 import UserProfile from './pages/profile';
+import UserAccount from './pages/account';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/account" element={<UserAccount />} />
       </Routes>
       <Footer />
     </Router>

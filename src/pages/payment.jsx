@@ -9,10 +9,10 @@ export default function Payment() {
         <div className="form-group">
             <label for="plan">Selected Plan</label>
             <select id="plan">
-                <option>Daily - Ksh 100 / $1</option>
-                <option>Weekly - Ksh 500 / $5</option>
-                <option>Monthly - Ksh 1500 / $15</option>
-                <option>Yearly - Ksh 10,000 / $100</option>
+                <option>Daily - Ksh 640 / $1</option>
+                <option>Weekly - Ksh 32,00 / $25</option>
+                <option>Monthly - Ksh 10,000 / $77</option>
+                {/*<option>Yearly - Ksh 10,000 / $100</option>*/}
             </select>
         </div>
 
