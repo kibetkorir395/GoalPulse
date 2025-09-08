@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './faq.css';
+import { NavLink } from 'react-router-dom';
 
 export default function FAQ() {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -66,7 +67,7 @@ export default function FAQ() {
       <div className="support-cta">
         <h2>Still have questions?</h2>
         <p>Contact our support team for personalized assistance</p>
-        <a href="/contact" className="cta-button">Contact Support</a>
+        <NavLink to="/contact" className="cta-button">Contact Support</NavLink>
       </div>
     </div>
   );

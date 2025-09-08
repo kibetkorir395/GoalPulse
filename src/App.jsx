@@ -14,6 +14,7 @@ import ContactUs from './pages/contact';
 import FAQ from './pages/faq';
 import TermsOfService from './pages/terms';
 import PrivacyPolicy from './pages/privacy';
+import UserProfile from './pages/profile';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/free-tips" element={<Free />} />
         <Route path="/vip-tips" element={<Premium />} />
         <Route path="/subscription" element={<Subscription />} />
+        <Route path="/profile" element={<UserProfile />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/single-blog" element={<SingleBlog />} />
