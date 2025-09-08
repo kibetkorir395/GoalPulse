@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './dashboard.css';
+import './admin-dashboard.css';
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
