@@ -10,6 +10,10 @@ import Free from './pages/free'
 import SingleBlog from './pages/single-blog';
 import Auth from './pages/auth';
 import Blog from './pages/blog';
+import ContactUs from './pages/contact';
+import FAQ from './pages/faq';
+import TermsOfService from './pages/terms';
+import PrivacyPolicy from './pages/privacy';
 
 function App() {
 
@@ -25,6 +29,10 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/single-blog" element={<SingleBlog />} />
         <Route path="/login" element={<Auth />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/terms" element={<TermsOfService />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
       </Routes>
       <Footer />
     </Router>

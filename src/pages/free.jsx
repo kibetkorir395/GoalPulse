@@ -34,7 +34,7 @@ export default function Free() {
     <div className="blog">
         <h2>📖 Betting Tips & Guides</h2>
         <p>Learn how to manage your bankroll, maximize profits, and make informed bets.
-            Check out our <NavLink to="#">latest blog articles</NavLink> for expert strategies.</p>
+            Check out our <NavLink to="/blog">latest blog articles</NavLink> for expert strategies.</p>
     </div>
 
 </div>
