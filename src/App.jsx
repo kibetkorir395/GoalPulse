@@ -14,11 +14,10 @@ import ContactUs from './pages/contact';
 import FAQ from './pages/faq';
 import TermsOfService from './pages/terms';
 import PrivacyPolicy from './pages/privacy';
-import UserProfile from './pages/profile';
+//import UserProfile from './pages/profile';
 import UserAccount from './pages/account';
 import AdminDashboard from './pages/admin-dashboard';
 import ErrorPage from './pages/error-page';
-import Dashboard from './pages/dashboard';
 
 function App() {
 
@@ -30,7 +29,7 @@ function App() {
         <Route path="/free-tips" element={<Free />} />
         <Route path="/vip-tips" element={<Premium />} />
         <Route path="/subscription" element={<Subscription />} />
-        <Route path="/profile" element={<UserProfile />} />
+        {/*<Route path="/profile" element={<UserProfile />} />*/}
         <Route path="/payment" element={<Payment />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/single-blog" element={<SingleBlog />} />
@@ -41,7 +40,6 @@ function App() {
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/account" element={<UserAccount />} />
         <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />

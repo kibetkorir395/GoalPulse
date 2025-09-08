@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './admin-dashboard.css';
+import './dashboard.css';
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -19,6 +19,35 @@ export default function AdminDashboard() {
     { id: 5, title: '5 Common Betting Mistakes to Avoid', author: 'David Analyst', date: '2024-05-02', status: 'Published', views: 1789 }
   ]);
 
+  const [predictions, setPredictions] = useState([
+    { id: 1, match: 'Arsenal vs Chelsea', prediction: 'Over 2.5 Goals', odds: 1.80, league: 'Premier League', date: '2024-05-20', status: 'Pending', isPremium: false },
+    { id: 2, match: 'Barcelona vs Real Madrid', prediction: 'Barcelona Win', odds: 2.10, league: 'La Liga', date: '2024-05-21', status: 'Won', isPremium: true },
+    { id: 3, match: 'PSG vs Bayern Munich', prediction: 'PSG Win', odds: 2.30, league: 'Champions League', date: '2024-05-18', status: 'Lost', isPremium: true },
+    { id: 4, match: 'Man United vs Liverpool', prediction: 'Both Teams to Score', odds: 1.70, league: 'Premier League', date: '2024-05-19', status: 'Pending', isPremium: false },
+    { id: 5, match: 'Juventus vs AC Milan', prediction: 'Under 2.5 Goals', odds: 1.75, league: 'Serie A', date: '2024-05-17', status: 'Void', isPremium: true }
+  ]);
+
+  // Form states
+  const [postForm, setPostForm] = useState({
+    title: '',
+    content: '',
+    category: 'Betting Strategies',
+    status: 'Draft',
+    image: null
+  });
+
+  const [predictionForm, setPredictionForm] = useState({
+    match: '',
+    prediction: '',
+    odds: '',
+    league: 'Premier League',
+    matchDate: '',
+    isPremium: false,
+    analysis: ''
+  });
+
+  const [editingPrediction, setEditingPrediction] = useState(null);
+
   // Stats data
   const stats = [
     { title: 'Total Users', value: '2,548', change: '+12%', icon: '👥' },
@@ -35,6 +64,116 @@ export default function AdminDashboard() {
     { user: 'Robert Johnson', action: 'Cancelled subscription', time: '2 days ago' },
     { user: 'Sarah Williams', action: 'Submitted support ticket', time: '3 days ago' }
   ];
+
+  // Handle post form changes
+  const handlePostChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setPostForm(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  // Handle prediction form changes
+  const handlePredictionChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setPredictionForm(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  // Submit new post
+  const handlePostSubmit = (e) => {
+    e.preventDefault();
+    const newPost = {
+      id: posts.length + 1,
+      title: postForm.title,
+      author: 'Admin',
+      date: new Date().toISOString().split('T')[0],
+      status: postForm.status,
+      views: 0,
+      category: postForm.category
+    };
+
+    setPosts([newPost, ...posts]);
+    setPostForm({
+      title: '',
+      content: '',
+      category: 'Betting Strategies',
+      status: 'Draft',
+      image: null
+    });
+
+    alert('Blog post created successfully!');
+  };
+
+  // Submit new prediction
+  const handlePredictionSubmit = (e) => {
+    e.preventDefault();
+
+    if (editingPrediction) {
+      // Update existing prediction
+      setPredictions(predictions.map(p =>
+        p.id === editingPrediction.id
+          ? { ...p, ...predictionForm }
+          : p
+      ));
+      setEditingPrediction(null);
+      alert('Prediction updated successfully!');
+    } else {
+      // Add new prediction
+      const newPrediction = {
+        id: predictions.length + 1,
+        ...predictionForm,
+        status: 'Pending',
+        date: new Date().toISOString().split('T')[0]
+      };
+
+      setPredictions([newPrediction, ...predictions]);
+      alert('Prediction added successfully!');
+    }
+
+    setPredictionForm({
+      match: '',
+      prediction: '',
+      odds: '',
+      league: 'Premier League',
+      matchDate: '',
+      isPremium: false,
+      analysis: ''
+    });
+  };
+
+  // Edit prediction
+  const handleEditPrediction = (prediction) => {
+    setEditingPrediction(prediction);
+    setPredictionForm({
+      match: prediction.match,
+      prediction: prediction.prediction,
+      odds: prediction.odds,
+      league: prediction.league,
+      matchDate: prediction.matchDate,
+      isPremium: prediction.isPremium,
+      analysis: prediction.analysis || ''
+    });
+  };
+
+  // Delete prediction
+  const handleDeletePrediction = (id) => {
+    if (window.confirm('Are you sure you want to delete this prediction?')) {
+      setPredictions(predictions.filter(p => p.id !== id));
+      alert('Prediction deleted successfully!');
+    }
+  };
+
+  // Update prediction status
+  const handleStatusChange = (id, status) => {
+    setPredictions(predictions.map(p =>
+      p.id === id ? { ...p, status } : p
+    ));
+    alert('Prediction status updated!');
+  };
 
   return (
     <div className="admin-dashboard">
@@ -64,6 +203,12 @@ export default function AdminDashboard() {
           onClick={() => setActiveTab('content')}
         >
           📝 Content
+        </button>
+        <button
+          className={activeTab === 'predictions' ? 'tab-active' : ''}
+          onClick={() => setActiveTab('predictions')}
+        >
+          ⚽ Predictions
         </button>
         <button
           className={activeTab === 'analytics' ? 'tab-active' : ''}
@@ -159,44 +304,320 @@ export default function AdminDashboard() {
         )}
 
         {activeTab === 'content' && (
-          <div className="table-card">
-            <div className="table-header">
+          <div className="content-management">
+            <div className="content-header">
               <h2>Content Management</h2>
-              <button className="btn-primary">Create New Post</button>
+              <button
+                className="btn-primary"
+                onClick={() => setActiveTab('create-post')}
+              >
+                Create New Post
+              </button>
             </div>
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Author</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  <th>Views</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {posts.map(post => (
-                  <tr key={post.id}>
-                    <td>{post.title}</td>
-                    <td>{post.author}</td>
-                    <td>{post.date}</td>
-                    <td>
-                      <span className={`status-badge status-${post.status.toLowerCase()}`}>
-                        {post.status}
-                      </span>
-                    </td>
-                    <td>{post.views}</td>
-                    <td>
-                      <div className="action-buttons">
-                        <button className="btn-sm btn-edit">Edit</button>
-                        <button className="btn-sm btn-delete">Delete</button>
-                      </div>
-                    </td>
+
+            <div className="table-card">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Views</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {posts.map(post => (
+                    <tr key={post.id}>
+                      <td>{post.title}</td>
+                      <td>{post.author}</td>
+                      <td>{post.date}</td>
+                      <td>
+                        <span className={`status-badge status-${post.status.toLowerCase()}`}>
+                          {post.status}
+                        </span>
+                      </td>
+                      <td>{post.views}</td>
+                      <td>
+                        <div className="action-buttons">
+                          <button className="btn-sm btn-edit">Edit</button>
+                          <button className="btn-sm btn-delete">Delete</button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'create-post' && (
+          <div className="form-card">
+            <h2>Create New Blog Post</h2>
+            <form onSubmit={handlePostSubmit}>
+              <div className="form-group">
+                <label htmlFor="post-title">Title</label>
+                <input
+                  type="text"
+                  id="post-title"
+                  name="title"
+                  value={postForm.title}
+                  onChange={handlePostChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="post-category">Category</label>
+                <select
+                  id="post-category"
+                  name="category"
+                  value={postForm.category}
+                  onChange={handlePostChange}
+                >
+                  <option value="Betting Strategies">Betting Strategies</option>
+                  <option value="Bankroll Management">Bankroll Management</option>
+                  <option value="League Guides">League Guides</option>
+                  <option value="Team Analysis">Team Analysis</option>
+                  <option value="Psychology">Psychology</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="post-content">Content</label>
+                <textarea
+                  id="post-content"
+                  name="content"
+                  rows="10"
+                  value={postForm.content}
+                  onChange={handlePostChange}
+                  required
+                ></textarea>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="post-status">Status</label>
+                <select
+                  id="post-status"
+                  name="status"
+                  value={postForm.status}
+                  onChange={handlePostChange}
+                >
+                  <option value="Draft">Draft</option>
+                  <option value="Published">Published</option>
+                </select>
+              </div>
+
+              <div className="form-actions">
+                <button
+                  type="button"
+                  className="btn-secondary"
+                  onClick={() => setActiveTab('content')}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="btn-primary">
+                  {postForm.status === 'Draft' ? 'Save Draft' : 'Publish Post'}
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {activeTab === 'predictions' && (
+          <div className="predictions-management">
+            <div className="predictions-header">
+              <h2>Prediction Management</h2>
+              <button className="btn-primary" onClick={() => setEditingPrediction(null)}>
+                Add New Prediction
+              </button>
+            </div>
+
+            {editingPrediction ? (
+              <div className="form-card">
+                <h2>{editingPrediction ? 'Edit Prediction' : 'Add New Prediction'}</h2>
+                <form onSubmit={handlePredictionSubmit}>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="prediction-match">Match</label>
+                      <input
+                        type="text"
+                        id="prediction-match"
+                        name="match"
+                        value={predictionForm.match}
+                        onChange={handlePredictionChange}
+                        required
+                        placeholder="e.g., Arsenal vs Chelsea"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="prediction-league">League</label>
+                      <select
+                        id="prediction-league"
+                        name="league"
+                        value={predictionForm.league}
+                        onChange={handlePredictionChange}
+                      >
+                        <option value="Premier League">Premier League</option>
+                        <option value="La Liga">La Liga</option>
+                        <option value="Serie A">Serie A</option>
+                        <option value="Bundesliga">Bundesliga</option>
+                        <option value="Ligue 1">Ligue 1</option>
+                        <option value="Champions League">Champions League</option>
+                        <option value="Europa League">Europa League</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="prediction-prediction">Prediction</label>
+                      <input
+                        type="text"
+                        id="prediction-prediction"
+                        name="prediction"
+                        value={predictionForm.prediction}
+                        onChange={handlePredictionChange}
+                        required
+                        placeholder="e.g., Over 2.5 Goals"
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="prediction-odds">Odds</label>
+                      <input
+                        type="number"
+                        id="prediction-odds"
+                        name="odds"
+                        step="0.01"
+                        min="1.00"
+                        value={predictionForm.odds}
+                        onChange={handlePredictionChange}
+                        required
+                        placeholder="e.g., 1.80"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="prediction-date">Match Date</label>
+                      <input
+                        type="date"
+                        id="prediction-date"
+                        name="matchDate"
+                        value={predictionForm.matchDate}
+                        onChange={handlePredictionChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="form-group checkbox-group">
+                      <label htmlFor="prediction-premium">
+                        <input
+                          type="checkbox"
+                          id="prediction-premium"
+                          name="isPremium"
+                          checked={predictionForm.isPremium}
+                          onChange={handlePredictionChange}
+                        />
+                        Premium Prediction
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="prediction-analysis">Analysis (Optional)</label>
+                    <textarea
+                      id="prediction-analysis"
+                      name="analysis"
+                      rows="4"
+                      value={predictionForm.analysis}
+                      onChange={handlePredictionChange}
+                      placeholder="Brief analysis explaining the prediction..."
+                    ></textarea>
+                  </div>
+
+                  <div className="form-actions">
+                    <button
+                      type="button"
+                      className="btn-secondary"
+                      onClick={() => setEditingPrediction(null)}
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit" className="btn-primary">
+                      {editingPrediction ? 'Update Prediction' : 'Add Prediction'}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            ) : (
+              <div className="table-card">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Match</th>
+                      <th>Prediction</th>
+                      <th>Odds</th>
+                      <th>League</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th>Type</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {predictions.map(prediction => (
+                      <tr key={prediction.id}>
+                        <td>{prediction.match}</td>
+                        <td>{prediction.prediction}</td>
+                        <td>{prediction.odds}</td>
+                        <td>{prediction.league}</td>
+                        <td>{prediction.date}</td>
+                        <td>
+                          <select
+                            value={prediction.status}
+                            onChange={(e) => handleStatusChange(prediction.id, e.target.value)}
+                            className={`status-select status-${prediction.status.toLowerCase()}`}
+                          >
+                            <option value="Pending">Pending</option>
+                            <option value="Won">Won</option>
+                            <option value="Lost">Lost</option>
+                            <option value="Void">Void</option>
+                          </select>
+                        </td>
+                        <td>
+                          <span className={`type-badge ${prediction.isPremium ? 'premium' : 'free'}`}>
+                            {prediction.isPremium ? 'Premium' : 'Free'}
+                          </span>
+                        </td>
+                        <td>
+                          <div className="action-buttons">
+                            <button
+                              className="btn-sm btn-edit"
+                              onClick={() => handleEditPrediction(prediction)}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="btn-sm btn-delete"
+                              onClick={() => handleDeletePrediction(prediction.id)}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
 

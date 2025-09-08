@@ -67,10 +67,9 @@ export default function Header() {
             <NavLink to="/vip-tips" className={location.pathname === '/vip-tips' ? 'active' : ''}>VIP Tips</NavLink>
             <NavLink to="/subscription" className={location.pathname === '/subscription' ? 'active' : ''}>Subscription</NavLink>
             <NavLink to="/blog" className={location.pathname === '/blog' ? 'active' : ''}>Blog</NavLink>
-            <NavLink to="/login" className={location.pathname === '/login' ? 'active' : ''}>Login</NavLink>
+            {/*<NavLink to="/login" className={location.pathname === '/login' ? 'active' : ''}>Login</NavLink>*/}
             <NavLink to="/admin" className={location.pathname === '/admin' ? 'active' : ''}>Admin</NavLink>
-            <NavLink to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>Profile</NavLink>
-            <NavLink to="/account" className={location.pathname === '/account' ? 'active' : ''}>Account</NavLink>
+            <NavLink to="/account" className={location.pathname === '/account' ? 'active' : ''}>👤Account</NavLink>
         </nav>
     </div>
   )
