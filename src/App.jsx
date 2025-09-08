@@ -16,6 +16,7 @@ import TermsOfService from './pages/terms';
 import PrivacyPolicy from './pages/privacy';
 import UserProfile from './pages/profile';
 import UserAccount from './pages/account';
+import AdminDashboard from './pages/admin-dashboard';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
         <Route path="/terms" element={<TermsOfService />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/account" element={<UserAccount />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
       <Footer />
     </Router>

@@ -38,6 +38,18 @@ export default function Header() {
     '/payment': {
       title: 'Payment',
       subtitle: 'Complete your subscription and access VIP tips instantly'
+    },
+    '/admin': {
+      title: '⚙️ Admin Dashboard',
+      subtitle: 'Manage Users, Content, and Analytics'
+    },
+    '/profile': {
+      title: '👤 User Profile',
+      subtitle: 'Manage Your Account Settings and Preferences'
+    },
+    '/account': {
+      title: '💼 Account Management',
+      subtitle: 'Update Your Subscription and Payment Details'
     }
   };
 
@@ -56,6 +68,9 @@ export default function Header() {
             <NavLink to="/subscription" className={location.pathname === '/subscription' ? 'active' : ''}>Subscription</NavLink>
             <NavLink to="/blog" className={location.pathname === '/blog' ? 'active' : ''}>Blog</NavLink>
             <NavLink to="/login" className={location.pathname === '/login' ? 'active' : ''}>Login</NavLink>
+            <NavLink to="/admin" className={location.pathname === '/admin' ? 'active' : ''}>Admin</NavLink>
+            <NavLink to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>Profile</NavLink>
+            <NavLink to="/account" className={location.pathname === '/account' ? 'active' : ''}>Account</NavLink>
         </nav>
     </div>
   )
