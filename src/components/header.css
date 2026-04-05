@@ -8,14 +8,6 @@ header {
   overflow: hidden;
 }
 
-/*payment header*/
-/*header {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  padding: 25px;
-  text-align: center;
-}*/
-
 header::before {
   content: "⚽";
   position: absolute;
@@ -31,12 +23,6 @@ header h1 {
   margin-bottom: 10px;
   position: relative;
 }
-
-/*vip header*/
-/*header h1 {
-  margin: 0;
-  font-size: 2rem;
-}*/
 
 header p {
   font-size: 1.2rem;
@@ -82,7 +68,8 @@ nav a:hover, nav a.active {
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 10;
+  z-index: 101;
+  position: relative;
 }
 
 .hamburger span {
@@ -93,13 +80,14 @@ nav a:hover, nav a.active {
   transition: all 0.3s ease;
 }
 
-/* Hamburger Animation */
+/* Hamburger to X animation */
 .hamburger.open span:first-child {
   transform: rotate(45deg) translate(6px, 6px);
 }
 
 .hamburger.open span:nth-child(2) {
   opacity: 0;
+  transform: scale(0.1);
 }
 
 .hamburger.open span:last-child {
@@ -111,6 +99,11 @@ nav a:hover, nav a.active {
   display: flex;
   gap: 20px;
   align-items: center;
+}
+
+/* Close button inside menu */
+.close-menu-btn {
+  display: none;
 }
 
 /* Responsive Design */
@@ -150,11 +143,11 @@ nav a:hover, nav a.active {
     background: var(--secondary);
     flex-direction: column;
     justify-content: flex-start;
-    padding-top: 80px;
-    gap: 10px;
+    padding-top: 70px;
+    gap: 5px;
     transition: left 0.3s ease;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 9;
+    z-index: 1000;
   }
   
   /* Show nav links when menu is open */
@@ -162,13 +155,39 @@ nav a:hover, nav a.active {
     left: 0;
   }
   
+  /* Show close button */
+  .close-menu-btn {
+    display: flex;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 28px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1002;
+  }
+  
+  .close-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+  }
+  
   /* Style nav links for mobile */
   .nav-links a {
     width: 100%;
-    padding: 15px 20px;
+    padding: 12px 20px;
     text-align: left;
     border-radius: 0;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    margin: 0;
   }
   
   .nav-links a:hover, 
@@ -186,7 +205,7 @@ nav a:hover, nav a.active {
     width: calc(100% - 300px);
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
-    z-index: -1;
+    pointer-events: none;
   }
 }
 
@@ -206,8 +225,16 @@ nav a:hover, nav a.active {
   }
   
   .nav-links a {
-    font-size: 1rem;
-    padding: 12px 20px;
+    font-size: 0.95rem;
+    padding: 10px 20px;
+  }
+  
+  .close-menu-btn {
+    top: 12px;
+    right: 12px;
+    font-size: 24px;
+    width: 35px;
+    height: 35px;
   }
 }
 

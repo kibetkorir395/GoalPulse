@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom';
 import './header.css'
 
@@ -6,12 +6,14 @@ export default function Header() {
   const location = useLocation();
   const isAdmin = true;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navRef = useRef(null);
+  const hamburgerRef = useRef(null);
 
   // Define content for each page
   const pageContent = {
     '/': {
       title: '⚽ Goal Pulse',
-      subtitle: 'Winning Starts Here - Get Free & Premium Predictions'//Your No.1 Source for Free & Premium Predictions
+      subtitle: 'Winning Starts Here - Get Free & Premium Predictions'
     },
     '/free-tips': {
       title: '📋 Free Football Tips',
@@ -19,14 +21,14 @@ export default function Header() {
     },
     '/vip-tips': {
       title: '⭐ VIP Football Tips',
-      subtitle: 'Exclusive High-Value Predictions For Subscribed Members Only'//For Maximum Returns
+      subtitle: 'Exclusive High-Value Predictions For Subscribed Members Only'
     },
     '/subscription': {
       title: '🔐 Subscription Plans',
       subtitle: 'Choose Your Plan - Unlock Premium Predictions'
     },
     '/blog': {
-      title: '📝 Football Insights Blog', //📖 Goal Pulse Blog
+      title: '📝 Football Insights Blog',
       subtitle: 'Expert Analysis, Tips & Strategy For Smart Betting'
     },
     '/single-blog': {
@@ -35,7 +37,7 @@ export default function Header() {
     },
     '/login': {
       title: '🔒 Member Login',
-      subtitle: 'Access Your Account To View Premium Predictions'//to get today's predictions
+      subtitle: 'Access Your Account To View Premium Predictions'
     },
     '/payment': {
       title: 'Payment',
@@ -58,10 +60,40 @@ export default function Header() {
   // Get current page content or default to home
   const currentContent = pageContent[location.pathname] || pageContent['/'];
   
-  // Close menu when clicking a link
-  const handleLinkClick = () => {
+  // Close menu
+  const closeMenu = () => {
     setIsMenuOpen(false);
   };
+
+  // Toggle menu
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMenuOpen && 
+          navRef.current && 
+          !navRef.current.contains(event.target) &&
+          hamburgerRef.current &&
+          !hamburgerRef.current.contains(event.target)) {
+        closeMenu();
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
 
   return (
     <div>
@@ -71,23 +103,25 @@ export default function Header() {
         </header>
         <nav>
             <button 
-              className="hamburger" 
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              ref={hamburgerRef}
+              className={`hamburger ${isMenuOpen ? 'open' : ''}`} 
+              onClick={toggleMenu}
               aria-label="Toggle menu"
             >
               <span></span>
               <span></span>
               <span></span>
             </button>
-            <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
-              <NavLink to="/" className={location.pathname === '/' ? 'active' : ''} onClick={handleLinkClick}>Home</NavLink>
-              <NavLink to="/free-tips" className={location.pathname === '/free-tips' ? 'active' : ''} onClick={handleLinkClick}>Free Tips</NavLink>
-              <NavLink to="/vip-tips" className={location.pathname === '/vip-tips' ? 'active' : ''} onClick={handleLinkClick}>VIP Tips</NavLink>
-              <NavLink to="/subscription" className={location.pathname === '/subscription' ? 'active' : ''} onClick={handleLinkClick}>Subscription</NavLink>
-              <NavLink to="/blog" className={location.pathname === '/blog' ? 'active' : ''} onClick={handleLinkClick}>Blog</NavLink>
+            <div ref={navRef} className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
+              <button className="close-menu-btn" onClick={closeMenu}>✕</button>
+              <NavLink to="/" className={location.pathname === '/' ? 'active' : ''} onClick={closeMenu}>Home</NavLink>
+              <NavLink to="/free-tips" className={location.pathname === '/free-tips' ? 'active' : ''} onClick={closeMenu}>Free Tips</NavLink>
+              <NavLink to="/vip-tips" className={location.pathname === '/vip-tips' ? 'active' : ''} onClick={closeMenu}>VIP Tips</NavLink>
+              <NavLink to="/subscription" className={location.pathname === '/subscription' ? 'active' : ''} onClick={closeMenu}>Subscription</NavLink>
+              <NavLink to="/blog" className={location.pathname === '/blog' ? 'active' : ''} onClick={closeMenu}>Blog</NavLink>
               {
-                isAdmin ? <NavLink to="/admin" className={location.pathname === '/admin' ? 'active' : ''} onClick={handleLinkClick}>Admin</NavLink>
-                : <NavLink to="/account" className={location.pathname === '/account' ? 'active' : ''} onClick={handleLinkClick}>👤Account</NavLink>
+                isAdmin ? <NavLink to="/admin" className={location.pathname === '/admin' ? 'active' : ''} onClick={closeMenu}>Admin</NavLink>
+                : <NavLink to="/account" className={location.pathname === '/account' ? 'active' : ''} onClick={closeMenu}>👤Account</NavLink>
               }
             </div>
         </nav>
