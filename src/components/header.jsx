@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom';
 import './header.css'
 
 export default function Header() {
   const location = useLocation();
+  const isAdmin = false;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Define content for each page
   const pageContent = {
@@ -55,6 +57,12 @@ export default function Header() {
 
   // Get current page content or default to home
   const currentContent = pageContent[location.pathname] || pageContent['/'];
+  
+  // Close menu when clicking a link
+  const handleLinkClick = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <div>
         <header>
@@ -62,14 +70,26 @@ export default function Header() {
             <p>{currentContent.subtitle}</p>
         </header>
         <nav>
-            <NavLink to="/" className={location.pathname === '/' ? 'active' : ''}>Home</NavLink>
-            <NavLink to="/free-tips" className={location.pathname === '/free-tips' ? 'active' : ''}>Free Tips</NavLink>
-            <NavLink to="/vip-tips" className={location.pathname === '/vip-tips' ? 'active' : ''}>VIP Tips</NavLink>
-            <NavLink to="/subscription" className={location.pathname === '/subscription' ? 'active' : ''}>Subscription</NavLink>
-            <NavLink to="/blog" className={location.pathname === '/blog' ? 'active' : ''}>Blog</NavLink>
-            {/*<NavLink to="/login" className={location.pathname === '/login' ? 'active' : ''}>Login</NavLink>*/}
-            <NavLink to="/admin" className={location.pathname === '/admin' ? 'active' : ''}>Admin</NavLink>
-            <NavLink to="/account" className={location.pathname === '/account' ? 'active' : ''}>👤Account</NavLink>
+            <button 
+              className="hamburger" 
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
+              <NavLink to="/" className={location.pathname === '/' ? 'active' : ''} onClick={handleLinkClick}>Home</NavLink>
+              <NavLink to="/free-tips" className={location.pathname === '/free-tips' ? 'active' : ''} onClick={handleLinkClick}>Free Tips</NavLink>
+              <NavLink to="/vip-tips" className={location.pathname === '/vip-tips' ? 'active' : ''} onClick={handleLinkClick}>VIP Tips</NavLink>
+              <NavLink to="/subscription" className={location.pathname === '/subscription' ? 'active' : ''} onClick={handleLinkClick}>Subscription</NavLink>
+              <NavLink to="/blog" className={location.pathname === '/blog' ? 'active' : ''} onClick={handleLinkClick}>Blog</NavLink>
+              {
+                isAdmin ? <NavLink to="/admin" className={location.pathname === '/admin' ? 'active' : ''} onClick={handleLinkClick}>Admin</NavLink>
+                : <NavLink to="/account" className={location.pathname === '/account' ? 'active' : ''} onClick={handleLinkClick}>👤Account</NavLink>
+              }
+            </div>
         </nav>
     </div>
   )
