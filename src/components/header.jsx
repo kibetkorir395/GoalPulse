@@ -4,7 +4,7 @@ import './header.css'
 
 export default function Header() {
   const location = useLocation();
-  const isAdmin = false;
+  const isAdmin = true;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Define content for each page
